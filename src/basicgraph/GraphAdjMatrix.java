@@ -108,7 +108,53 @@ public class GraphAdjMatrix extends Graph {
 	 * @return List<Integer> a list of indices of vertices.  
 	 */	
 	public List<Integer> getDistance2(int v) {
-		return null;
+		// TODO
+		int[][] mres = new int[adjMatrix.length][adjMatrix.length];
+
+		for (int row = 0; row < adjMatrix.length; row++) {
+			for (int column = 0; column < adjMatrix.length; column++) {
+
+				// get row data
+				int[] arow = adjMatrix[row];
+				
+				// get column data
+				int[] acolumn = new int[adjMatrix.length];
+				for (int i = 0; i < acolumn.length; i++) {
+					acolumn[i] = adjMatrix[i][column];
+				}
+
+				// multiply
+				int res = 0;
+				for (int i = 0; i < arow.length; i++) {
+					res = res + (arow[i] * acolumn[i]);
+				}
+				mres[row][column] = res;
+			}
+		}
+		
+		// getting final result
+		List<Integer> resultList = new ArrayList<>();
+		for (int c = 0; c < mres.length; c++) {
+			int numberOfTimes = mres[v][c];
+			if (numberOfTimes > 0) {
+				
+				while(numberOfTimes > 0) {
+					resultList.add(c);
+					numberOfTimes--;
+				}
+			}
+		}
+		  
+		// show res
+//		System.out.println("Resulting MultMatrix: \n");
+//		for (int i = 0; i < mres.length; i++) {
+//			for (int j = 0; j < mres.length; j++) {
+//				System.out.print(mres[i][j] + " ");
+//			}
+//			System.out.println();
+//		}
+//		System.out.println("---------");
+		return resultList;
 	}
 	
 	/**

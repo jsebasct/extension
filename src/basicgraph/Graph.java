@@ -2,6 +2,7 @@ package basicgraph;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,7 +123,14 @@ public abstract class Graph {
 	 */
 	public List<Integer> degreeSequence() {
 		// XXX: Implement in part 1 of week 1
-		return null;
+		List<Integer> degreeSequence = new ArrayList<>();
+		for (int vi = 0; vi < this.getNumVertices(); vi++) {
+			Integer degreeVi = this.getNeighbors(vi).size() + this.getInNeighbors(vi).size();
+			degreeSequence.add(degreeVi);
+		}
+		
+		Collections.sort(degreeSequence, Collections.reverseOrder());
+		return degreeSequence;
 	}
 	
 	/**
@@ -228,7 +236,9 @@ public abstract class Graph {
 
 	
 	public static void main (String[] args) {
-		GraphLoader.createIntersectionsFile("data/maps/myucsd.map", "data/intersections/myucsd.intersections");
+//		GraphLoader.createIntersectionsFile("data/maps/ucsd.map", "data/intersections/ucsd.intersections");
+		GraphLoader.createIntersectionsFile("data/testdata/simpletest.map", "data/testdata/simpletest.intersections");	
+		//GraphLoader.createIntersectionsFile("data/maps/BoCoMuyurin.map", "data/intersections/BoCoMuyurin.intersections");
 		
 
 		// For testing of Part 1 functionality
@@ -240,6 +250,7 @@ public abstract class Graph {
 		System.out.println("****");
 		System.out.println("Roads / intersections:");
 		GraphAdjList graphFromFile = new GraphAdjList();
+		//GraphLoader.loadRoadMap("data/maps/ucsd.map", graphFromFile);
 		GraphLoader.loadRoadMap("data/testdata/simpletest.map", graphFromFile);
 		System.out.println(graphFromFile);
 		
@@ -250,19 +261,59 @@ public abstract class Graph {
 		
 		// You can test with real road data here.  Use the data files in data/maps
 		
-		System.out.println("Flight data:");
-		GraphAdjList airportGraph = new GraphAdjList();
-		GraphLoader.loadRoutes("data/airports/routesUA.dat", airportGraph);
-		System.out.println(airportGraph);
-		System.out.println("Observe most degrees are small (1-30), eight are over 100.");
-		System.out.println("****");
-		
+//		System.out.println("Flight data:");
+//		GraphAdjList airportGraph = new GraphAdjList();
+//		GraphLoader.loadRoutes("data/airports/routesUA.dat", airportGraph);
+//		System.out.println(airportGraph);
+//		System.out.println("Observe most degrees are small (1-30), eight are over 100.");
+//		System.out.println("****");
+//		
 		//For testing Part 2 functionality
 		// Test your distance2 code here.
 		System.out.println("Testing distance-two methods on sample graphs...");
 		System.out.println("Goal: implement method using two approaches.");
-
-
 		
+//		Graph graphFromFile2 = new GraphAdjMatrix();
+//		GraphLoader.loadRoadMap("data/testdata/simpletest.map", graphFromFile2);
+//		System.out.println(graphFromFile2);
+		
+		System.out.println("\n****");
+		
+		
+		//
+		Graph graphManual = new GraphAdjMatrix();
+//		Graph graphManual = new GraphAdjList();
+		graphManual.addVertex();
+		graphManual.addVertex();
+		graphManual.addVertex();
+		graphManual.addVertex();
+		
+		graphManual.addEdge(0, 1);
+		graphManual.addEdge(0, 2);
+		graphManual.addEdge(1, 3);
+		graphManual.addEdge(2, 1);
+		graphManual.addEdge(2, 3);
+		
+		System.out.println(graphManual);
+		
+		List<Integer> distance2 = graphManual.getDistance2(0);
+		System.out.println("Distance2 - 0: " + distance2);
+		
+//		distance2 = graphManual.getDistance2(1);
+//		System.out.println("Distance2 - 1: " + distance2);
+//		
+//		distance2 = graphManual.getDistance2(2);
+//		System.out.println("Distance2 - 2: " + distance2);
+//		
+//		distance2 = graphManual.getDistance2(3);
+//		System.out.println("Distance2 - 3: " + distance2);
+
+//		List<Integer> template = new ArrayList<>();
+//		template.add(10);
+//		template.add(4);
+//		template.add(7);
+//		
+//		Collections.sort(template, Collections.reverseOrder());
+//		System.out.println(template);
 	}
 }
